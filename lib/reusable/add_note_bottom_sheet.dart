@@ -72,8 +72,9 @@ class AddNoteBottomSheet extends StatelessWidget {
                         )
                       else
                         Padding(
-                          padding: const EdgeInsets.only(
+                          padding: EdgeInsets.only(
                             top: 100.0,
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
                           ),
                           child: CustomButton(
                             onTab: () {
