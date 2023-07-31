@@ -2,16 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/constants/constants.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.hint, this.maxLines = 1});
+  const CustomTextField(
+      {super.key,
+      required this.hint,
+      this.maxLines = 1,
+      this.onSaved,
+      this.controller,
+      this.validator});
 
   final String hint;
-
   final int maxLines;
+  final void Function(String?)? onSaved;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       cursorColor: kPrimaryColor,
+      onSaved: onSaved,
+      controller: controller,
+      validator: validator,
       decoration: InputDecoration(
         hintStyle: TextStyle(color: kPrimaryColor),
         enabledBorder: OutlineInputBorder(
