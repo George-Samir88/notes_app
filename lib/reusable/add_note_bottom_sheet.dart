@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/cubits/bottom_sheet_cubit/bottom_sheet_cubit.dart';
+import 'package:notes_app/cubits/bottom_sheet_validate_cubit/bottom_sheet_cubit.dart';
 import 'package:notes_app/reusable/custom_button.dart';
 import 'package:notes_app/reusable/custom_text_field.dart';
 
