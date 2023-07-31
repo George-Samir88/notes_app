@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/reusable/custom_button.dart';
 import 'package:notes_app/reusable/custom_text_field.dart';
 
@@ -22,15 +23,15 @@ class AddNoteBottomSheet extends StatelessWidget {
       },
       builder: (context, state) {
         String? title, content;
-        return SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-            child: Form(
-              key: _formKey,
-              autovalidateMode: AddNoteCubit.getOb(context).autoValidateMode,
-              child: ModalProgressHUD(
-                inAsyncCall: state is AddNoteLoadingState ? true : false,
+        return ModalProgressHUD(
+          inAsyncCall: state is AddNoteLoadingState ? true : false,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+              child: Form(
+                key: _formKey,
+                autovalidateMode: AddNoteCubit.getOb(context).autoValidateMode,
                 child: Column(
                   children: [
                     CustomTextField(
@@ -70,6 +71,12 @@ class AddNoteBottomSheet extends StatelessWidget {
                         onTab: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
+                            NoteModel noteModel = NoteModel(
+                                date: DateTime.now().toString(),
+                                color: Colors.amber.value,
+                                subTitle: content.toString(),
+                                title: title.toString());
+                            AddNoteCubit.getOb(context).addNote(noteModel);
                           } else {
                             AddNoteCubit.getOb(context)
                                 .changeAutoValidateMode();
