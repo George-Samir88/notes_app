@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:notes_app/constants/constants.dart';
@@ -10,14 +9,11 @@ class NotesCubit extends Cubit<NotesState> {
 
   static NotesCubit getOb(context) => BlocProvider.of<NotesCubit>(context);
 
+  List<NoteModel>? notesModelList;
+
   fetchNotes() {
-    emit(NotesLoadingState());
-    try {
-      Box<NoteModel> notes = Hive.box(kHiveBox);
-      emit(NotesSuccessState(noteModel: notes.values.toList()));
-    } catch (err) {
-      debugPrint(err.toString());
-      emit(NotesFailureState(error: err.toString()));
-    }
+    Box<NoteModel> notes = Hive.box(kHiveBox);
+    notesModelList = notes.values.toList();
+    emit(NotesSuccessState());
   }
 }
