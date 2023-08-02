@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/reusable/colors_list_view.dart';
 import 'package:notes_app/reusable/custom_button.dart';
 import 'package:notes_app/reusable/custom_text_field.dart';
 
@@ -68,15 +69,16 @@ class AddNoteBottomSheet extends StatelessWidget {
                           maxLines: 5,
                         ),
                       ),
+                      const ColorsListView(),
                       if (state is AddNoteLoadingState)
                         const Padding(
-                          padding: EdgeInsets.only(top: 100.0),
+                          padding: EdgeInsets.only(top: 50.0),
                           child: Center(child: CircularProgressIndicator()),
                         )
                       else
                         Padding(
                           padding: EdgeInsets.only(
-                            top: 100.0,
+                            top: 50.0,
                             bottom: MediaQuery.of(context).viewInsets.bottom,
                           ),
                           child: CustomButton(
