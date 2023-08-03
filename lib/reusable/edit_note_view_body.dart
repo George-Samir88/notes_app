@@ -3,6 +3,8 @@ import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/reusable/custom_app_bar.dart';
 import 'package:notes_app/reusable/custom_text_field.dart';
+import 'package:notes_app/reusable/edit_note_colors_list_view.dart';
+
 
 class EditNoteViewBody extends StatelessWidget {
   const EditNoteViewBody({super.key, required this.noteModel});
@@ -64,6 +66,7 @@ class EditNoteViewBody extends StatelessWidget {
                     return null;
                   },
                 ),
+                EditNoteColorListView(noteModel: noteModel),
               ],
             ),
           ),

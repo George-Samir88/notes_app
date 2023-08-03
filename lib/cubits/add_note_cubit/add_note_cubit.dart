@@ -13,6 +13,8 @@ class AddNoteCubit extends Cubit<AddNoteState> {
 
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
+  Color color = const Color(0xffFFC6AC);
+
   void changeAutoValidateMode() {
     autoValidateMode = AutovalidateMode.always;
     emit(ChangeAutoValidateModeState());
@@ -21,6 +23,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
   addNote(NoteModel noteModel) async {
     emit(AddNoteLoadingState());
     try {
+      noteModel.color = color.value;
       Box<NoteModel> noteBox = Hive.box<NoteModel>(kHiveBox);
       await noteBox.add(noteModel);
       emit(AddNoteSuccessState());

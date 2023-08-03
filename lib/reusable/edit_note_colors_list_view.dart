@@ -1,18 +1,26 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/material.dart';
 import 'package:notes_app/constants/constants.dart';
-import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/reusable/color_item.dart';
 
-class ColorsListView extends StatefulWidget {
-  const ColorsListView({super.key});
+class EditNoteColorListView extends StatefulWidget {
+  const EditNoteColorListView({super.key, required this.noteModel});
+
+  final NoteModel noteModel;
 
   @override
-  State<ColorsListView> createState() => _ColorsListViewState();
+  State<EditNoteColorListView> createState() => _EditNoteColorListViewState();
 }
 
-class _ColorsListViewState extends State<ColorsListView> {
-  late bool isSelected;
-  int currentIndex = 0;
+class _EditNoteColorListViewState extends State<EditNoteColorListView> {
+  late int currentIndex;
+
+  @override
+  void initState() {
+    currentIndex = kColors.indexOf(Color(widget.noteModel.color));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +33,8 @@ class _ColorsListViewState extends State<ColorsListView> {
           child: ColorItem(
               isSelected: currentIndex == index, color: kColors[index]),
           onTap: () {
-            AddNoteCubit.getOb(context).color = kColors[index];
             currentIndex = index;
+            widget.noteModel.color = kColors[index].value;
             setState(() {});
           },
         ),
