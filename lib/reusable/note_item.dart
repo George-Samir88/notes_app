@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/reusable/show_snack_bar.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
@@ -13,7 +14,11 @@ class NoteItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => EditNoteView(noteModel: noteModel,)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditNoteView(
+                      noteModel: noteModel,
+                    )));
       },
       child: Container(
         padding: const EdgeInsets.only(top: 24.0, left: 16.0, bottom: 24.0),
@@ -40,6 +45,10 @@ class NoteItem extends StatelessWidget {
               trailing: IconButton(
                 onPressed: () {
                   noteModel.delete();
+                  showSnackBar(
+                      context: context,
+                      content: 'Task deleted successfully',
+                      actionColor: Colors.amber);
                   NotesCubit.getOb(context).fetchNotes();
                 },
                 icon: const Icon(

@@ -4,7 +4,7 @@ import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/reusable/custom_app_bar.dart';
 import 'package:notes_app/reusable/custom_text_field.dart';
 import 'package:notes_app/reusable/edit_note_colors_list_view.dart';
-
+import 'package:notes_app/reusable/show_snack_bar.dart';
 
 class EditNoteViewBody extends StatelessWidget {
   const EditNoteViewBody({super.key, required this.noteModel});
@@ -34,6 +34,9 @@ class EditNoteViewBody extends StatelessWidget {
                       noteModel.title = titleController.text;
                       noteModel.subTitle = contentController.text;
                       noteModel.save();
+                      showSnackBar(
+                          context: context,
+                          content: 'Task updated successfully');
                       NotesCubit.getOb(context).fetchNotes();
                       Navigator.pop(context);
                     }

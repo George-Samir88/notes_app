@@ -7,6 +7,7 @@ import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/reusable/colors_list_view.dart';
 import 'package:notes_app/reusable/custom_button.dart';
 import 'package:notes_app/reusable/custom_text_field.dart';
+import 'package:notes_app/reusable/show_snack_bar.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({super.key});
@@ -20,8 +21,13 @@ class AddNoteBottomSheet extends StatelessWidget {
       child: BlocConsumer<AddNoteCubit, AddNoteState>(
         listener: (context, state) {
           if (state is AddNoteFailureState) {
+            showSnackBar(
+                context: context,
+                content: 'Error, try again ${state.err}',
+                actionColor: Colors.red);
             debugPrint('err ${state.err}');
           } else if (state is AddNoteSuccessState) {
+            showSnackBar(context: context, content: 'Task added successfully');
             NotesCubit.getOb(context).fetchNotes();
             Navigator.pop(context);
           }
